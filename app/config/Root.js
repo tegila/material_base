@@ -1,11 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import App from '../components/App';
+import AppBar from '../components/AppBar';
 
 const Root = () => {
   return (
     <Router>
-      <Route path="/" component={App} />
+      <Switch>
+        <Route path="/" component={AppBar} />
+        <Route path="/app" component={App} />
+      </Switch>
     </Router>
   );
 };
