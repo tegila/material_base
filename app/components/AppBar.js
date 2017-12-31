@@ -7,8 +7,9 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
+import TextField from 'material-ui/TextField';
 
-const styles = {
+const styles = theme => ({
   root: {
     width: '100%',
   },
@@ -19,12 +20,21 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-};
+  inputProps: {
+    step: 300,
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+});
 
 function ButtonAppBar(props) {
   const { classes } = props;
   return (
-    <div className={classes.root}>
+    <div className={styles.root}>
       <AppBar position="static">
         <Toolbar>
           <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
@@ -36,12 +46,13 @@ function ButtonAppBar(props) {
           <Button color="contrast">Login</Button>
         </Toolbar>
       </AppBar>
+      <TextField type="text" label="Name" />
     </div>
   );
 }
 
 ButtonAppBar.propTypes = {
-  classes: PropTypes.shape.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ButtonAppBar);
