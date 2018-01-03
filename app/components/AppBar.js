@@ -8,6 +8,8 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
+import Grid from 'material-ui/Grid';
 
 const styles = theme => ({
   root: {
@@ -29,6 +31,11 @@ const styles = theme => ({
   input: {
     display: 'none',
   },
+  paper: {
+    padding: 16,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
 });
 
 function ButtonAppBar(props) {
@@ -46,7 +53,18 @@ function ButtonAppBar(props) {
           <Button color="contrast">Login</Button>
         </Toolbar>
       </AppBar>
-      <TextField type="text" label="Name" />
+      <Grid container spacing={8} alignItems="center" justify="center">
+        <Grid item xs={12} >
+          <Paper className={classes.paper}>
+            <TextField type="text" label="Usuário" />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} >
+          <Paper className={classes.paper}>
+            <TextField type="text" label="Senha" />
+          </Paper>
+        </Grid>
+      </Grid>
     </div>
   );
 }
