@@ -1,4 +1,5 @@
 import React from 'react';
+import 'typeface-roboto';
 import img from '../assets/images/react_logo_512x512.png';
 
 const App = () => {

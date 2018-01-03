@@ -11,6 +11,8 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 
+import img from '../assets/images/react_logo_512x512.png';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -18,53 +20,62 @@ const styles = theme => ({
   flex: {
     flex: 1,
   },
+  paper: {
+    'margin-top': 30,
+  },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
   },
-  inputProps: {
-    step: 300,
-  },
   button: {
+    'margin-top': 20,
     margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  paper: {
-    padding: 16,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
   },
 });
 
 function ButtonAppBar(props) {
   const { classes } = props;
   return (
-    <div className={styles.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography type="title" color="inherit" className={classes.flex}>
-            Title
-          </Typography>
-          <Button color="contrast">Login</Button>
-        </Toolbar>
-      </AppBar>
-      <Grid container spacing={8} alignItems="center" justify="center">
-        <Grid item xs={12} >
-          <Paper className={classes.paper}>
+    <div className={classes.root}>
+      <Paper className={classes.shadow0}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography type="title" color="inherit" className={classes.flex}>
+              Title
+            </Typography>
+            <Button color="contrast">Login</Button>
+          </Toolbar>
+        </AppBar>
+      </Paper>
+      <Paper className={classes.shadow0}>
+        <Grid container className={classes.root}>
+          <Grid container spacing={8} alignItems="center" justify="center">
+            <div>
+              <h2 id="heading">Hello ReactJS</h2>
+              <img
+                className="image"
+                style={{ margin: '0.5em' }}
+                height="80"
+                width="80"
+                src={img}
+                alt="React Logo"
+              />
+            </div>
+          </Grid>
+          <Grid container spacing={8} alignItems="center" justify="center">
             <TextField type="text" label="Usuário" />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} >
-          <Paper className={classes.paper}>
+          </Grid>
+          <Grid container spacing={8} alignItems="center" justify="center">
             <TextField type="text" label="Senha" />
-          </Paper>
+          </Grid>
+          <Grid container className={classes.button} justify="flex-end">
+            <Button raised color="primary"> Login </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
     </div>
   );
 }
