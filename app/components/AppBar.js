@@ -35,9 +35,17 @@ const styles = theme => ({
 
 function ButtonAppBar(props) {
   const { classes } = props;
+  const state = {
+    inputs: {},
+  };
+
+  const updateInputValue = (evt) => {
+    state.inputs[evt.target.name] = evt.target.value;
+    console.log(state.inputs);
+  };
 
   const handleSubmit = (event) => {
-    console.log('handleSubmit');
+    // console.log('handleSubmit', username, password);
     if (!event.target.checkValidity()) {
       console.log({ displayErrors: true });
     }
@@ -78,10 +86,10 @@ function ButtonAppBar(props) {
               </div>
             </Grid>
             <Grid container spacing={8} alignItems="center" justify="center">
-              <TextField type="text" label="Usuário" />
+              <TextField type="text" label="Usuário" name="username" value={state.inputs.username} onChange={evt => updateInputValue(evt)} />
             </Grid>
             <Grid container spacing={8} alignItems="center" justify="center">
-              <TextField type="text" label="Senha" />
+              <TextField type="text" label="Senha" name="password" value={state.inputs.password} onChange={evt => updateInputValue(evt)} />
             </Grid>
             <Grid container className={classes.button} justify="flex-end">
               <Button raised type="submit" color="primary"> Login </Button>
