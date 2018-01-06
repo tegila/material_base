@@ -1,5 +1,10 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
+
 import img from '../assets/images/react_logo_512x512.png';
+import Login from '../components/Login';
+import Order from '../components/Order';
+import Orders from '../components/Orders';
 
 const App = () => {
   return (
@@ -13,6 +18,9 @@ const App = () => {
         src={img}
         alt="React Logo"
       />
+      <Route path="/" exact component={Login} />
+      <Route path="/orders" exact component={Orders} />
+      <Route path="/order/:id" exact component={Order} />
     </div>
   );
 };

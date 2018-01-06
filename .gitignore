@@ -36,6 +36,9 @@
 # IntelliJ
 /out/
 
+# Webpack
+/dist/
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -57,5 +60,7 @@ npm-debug.log
 .vscode
 
 # coverage
-
 /coverage
+
+# npm locking file??
+package-lock.json

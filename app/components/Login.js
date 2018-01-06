@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import { Link } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -92,7 +93,9 @@ function ButtonAppBar(props) {
               <TextField type="text" label="Senha" name="password" value={state.inputs.password} onChange={evt => updateInputValue(evt)} />
             </Grid>
             <Grid container className={classes.button} justify="flex-end">
-              <Button raised type="submit" color="primary"> Login </Button>
+              <Link to="/orders">
+                <Button raised type="submit" color="primary"> Login </Button>
+              </Link>
             </Grid>
           </Grid>
         </Paper>

@@ -32,7 +32,6 @@ const config = {
 
   module: {
     rules: [
-      { test: /\.css$/, use: 'css-loader/locals'},
       {
         enforce: "pre",
         test: /\.js$/,
