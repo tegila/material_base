@@ -18,35 +18,33 @@ class CustomDrawer extends React.Component {
 
   render() {
     return (
-      <div>
-        <Drawer open={this.state.open} onClose={this.handleClose}>
-          <div tabIndex={0} role="button" onClick={this.handleClose} onKeyDown={this.handleClose}>
-            <List>
-              <ListItem button>
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary="Inbox" />
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon>
-                  <DraftsIcon />
-                </ListItemIcon>
-                <ListItemText primary="Drafts" />
-              </ListItem>
-            </List>
-            <Divider />
-            <List>
-              <ListItem button>
-                <ListItemText primary="Trash" />
-              </ListItem>
-              <ListItem button component="a" href="#simple-list">
-                <ListItemText primary="Spam" />
-              </ListItem>
-            </List>
-          </div>
-        </Drawer>
-      </div>
+      <Drawer open={this.state.open} onClose={this.handleClose}>
+        <div tabIndex={0} role="button" onClick={this.handleClose} onKeyDown={this.handleClose}>
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Inbox" />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Drafts" />
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem button>
+              <ListItemText primary="Trash" />
+            </ListItem>
+            <ListItem button component="a" href="#simple-list">
+              <ListItemText primary="Spam" />
+            </ListItem>
+          </List>
+        </div>
+      </Drawer>
     );
   }
 }

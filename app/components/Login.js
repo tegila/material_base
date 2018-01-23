@@ -7,7 +7,9 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 
+import MercadoLivre from 'mercadolivre';
 import img from '../assets/images/react_logo_512x512.png';
+import config from '../config';
 
 const styles = theme => ({
   root: {
@@ -49,6 +51,10 @@ function ButtonAppBar(props) {
     event.preventDefault();
     return 0;
   };
+
+  let meli = {};
+  meli = MercadoLivre(config.meli.client_id, config.meli.client_secret);
+  console.log(meli);
 
   return (
     <div className={classes.root}>
