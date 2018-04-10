@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 
 import AppBar from 'material-ui/AppBar';
@@ -7,16 +9,19 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-import Button from 'material-ui/Button';
+import * as colors from 'material-ui/colors';
 
 import CustomDrawer from './CustomDrawer';
+
+import { toggle_drawer } from '../actions/app';
 
 const styles = {
   root: {
     width: '100%',
   },
-  flex: {
-    flex: 1,
+  button: {
+    'background-color': colors.yellow[400],
+    color: '#000'
   },
   menuButton: {
     marginLeft: -12,
@@ -25,35 +30,41 @@ const styles = {
 };
 
 const CustomAppBar = (props) => {
-  const { classes } = props;
-  let open_drawer = null;
-
-  const debug = () => {
-    open_drawer.handleToggle();
-    console.log(open_drawer);
-    console.log(open_drawer.render());
-  };
-
+  const { classes, children, drawer, toggle_drawer } = props;
+  console.log(drawer);
   return (
     <AppBar position="static" color="default">
       <Toolbar>
-        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={() => debug()}>
+        <IconButton className={classes.menuButton} aria-label="Menu" onClick={() => toggle_drawer()}>
           <MenuIcon />
         </IconButton>
-        <Typography type="title" color="inherit" className={classes.flex}>
+        <Typography type="title" align="center">
           Salesforce
         </Typography>
-        <Button color="inherit">Login</Button>
       </Toolbar>
-      <CustomDrawer ref={(ref) => { open_drawer = ref; }} />
-      {props.children}
+      <CustomDrawer />
+      {children}
     </AppBar>
   );
 };
 
-CustomAppBar.propTypes = {
-  children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired
+CustomAppBar.defaultProps = {
+  children: false
 };
 
-export default withStyles(styles)(CustomAppBar);
+CustomAppBar.propTypes = {
+  children: PropTypes.node,
+  classes: PropTypes.object.isRequired,
+  drawer: PropTypes.bool.isRequired,
+  toggle_drawer: PropTypes.func.isRequired
+};
+
+export default compose(
+  withStyles(styles),
+  connect(
+    state => ({
+      drawer: state.app.drawer,
+    }),
+    { toggle_drawer }
+  ),
+)(CustomAppBar);

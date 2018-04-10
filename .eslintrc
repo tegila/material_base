@@ -26,6 +26,16 @@
     "arrow-body-style": "off",
     "no-console": "off",
     "no-underscore-dangle": 0,
-    "comma-dangle": 0
+    "comma-dangle": 0,
+    "quotes": 0,
+    "no-shadow": 0,
+    "import/prefer-default-export": 0,
+    "object-curly-newline": 0,
+    "arrow-parens": 0,
+    "no-return-assign": 0,
+    "react/no-unused-state": 0,
+    "no-useless-escape": 0,
+    "no-cond-assign": 0,
+    "jsx-a11y/alt-text": 0
   }
 }

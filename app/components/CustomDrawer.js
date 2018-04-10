@@ -1,52 +1,102 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import InboxIcon from 'material-ui-icons/Inbox';
 import DraftsIcon from 'material-ui-icons/Drafts';
 import Drawer from 'material-ui/Drawer';
+import StarBorder from 'material-ui-icons/StarBorder';
 
-class CustomDrawer extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log(this);
-    this.state = { open: false };
-  }
+import { toggle_drawer } from '../actions/app';
 
-  handleToggle = () => this.setState({ open: !this.state.open });
 
-  handleClose = () => this.setState({ open: false });
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  nested: {
+    paddingLeft: theme.spacing.unit * 2,
+    textDecoration: 'none'
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+  },
+});
 
-  render() {
-    return (
-      <Drawer open={this.state.open} onClose={this.handleClose}>
-        <div tabIndex={0} role="button" onClick={this.handleClose} onKeyDown={this.handleClose}>
-          <List>
-            <ListItem button>
+function CustomDrawer({ classes, drawer, toggle_drawer }) {
+  return (
+    <Drawer
+      open={drawer}
+      onClose={() => toggle_drawer({ open: false })}
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+    >
+      <div
+        className={classes.drawerHeader}
+        tabIndex={0}
+        role="button"
+        onClick={() => toggle_drawer({ open: false })}
+        onKeyDown={() => toggle_drawer({ open: false })}
+      >
+        <List>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <ListItem>
               <ListItemIcon>
-                <InboxIcon />
+                <StarBorder />
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText inset primary="Perguntas" />
             </ListItem>
-            <ListItem button>
+          </Link>
+          <List component="div" className={classes.nested}>
+            <Link to="/question/12" style={{ textDecoration: 'none' }}>
+              <ListItem button>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText inset primary="Não respondidas" />
+              </ListItem>
+            </Link>
+            <ListItem button className={classes.nested}>
               <ListItemIcon>
-                <DraftsIcon />
+                <StarBorder />
               </ListItemIcon>
-              <ListItemText primary="Drafts" />
+              <ListItemText inset primary="Historico" />
             </ListItem>
           </List>
-          <Divider />
-          <List>
-            <ListItem button>
-              <ListItemText primary="Trash" />
-            </ListItem>
-            <ListItem button component="a" href="#simple-list">
-              <ListItemText primary="Spam" />
-            </ListItem>
-          </List>
-        </div>
-      </Drawer>
-    );
-  }
+          <ListItem button>
+            <ListItemIcon>
+              <DraftsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Usuário" />
+          </ListItem>
+        </List>
+        <Divider />
+      </div>
+    </Drawer>
+  );
 }
 
-export default CustomDrawer;
+CustomDrawer.propTypes = {
+  classes: PropTypes.object.isRequired,
+  drawer: PropTypes.bool.isRequired,
+  toggle_drawer: PropTypes.func.isRequired
+};
+
+export default compose(
+  withStyles(styles),
+  connect(
+    state => ({
+      drawer: state.app.drawer,
+    }),
+    { toggle_drawer }
+  ),
+)(CustomDrawer);
