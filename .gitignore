@@ -56,6 +56,9 @@ node_modules
 # npm debug log
 npm-debug.log
 
+# yarn 
+yarn*
+
 # vs code
 .vscode
 
