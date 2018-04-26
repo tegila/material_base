@@ -36,6 +36,7 @@
     "react/no-unused-state": 0,
     "no-useless-escape": 0,
     "no-cond-assign": 0,
-    "jsx-a11y/alt-text": 0
+    "jsx-a11y/alt-text": 0,
+    "import/no-extraneous-dependencies": 0
   }
 }
