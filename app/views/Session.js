@@ -9,7 +9,7 @@ const styles = {
   },
 };
 
-function Question({ match }) {
+function Session({ match }) {
   return (
     <div>
       <CustomAppBar />
@@ -18,8 +18,8 @@ function Question({ match }) {
   );
 }
 
-Question.propTypes = {
+Session.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Question);
+export default withStyles(styles)(Session);

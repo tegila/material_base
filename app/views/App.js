@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import Dashboard from './Dashboard';
-import Question from './Question';
+import Session from './Session';
 
 const styles = {
   root: {
@@ -14,7 +14,7 @@ const App = () => {
   return (
     <div className={styles.root}>
       <Route path="/" exact component={Dashboard} />
-      <Route path="/question/:id" exact component={Question} />
+      <Route path="/sessions/:id" exact component={Session} />
     </div>
   );
 };

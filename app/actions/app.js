@@ -11,6 +11,7 @@ const store = Store(host, {
 
 store.on('connect', () => {
   console.log('connected');
+  store.query('test/session', { });
 });
 
 export function toggle_drawer(state) {
@@ -41,6 +42,5 @@ export function load_sessions() {
       console.log("session: ----> ", session.payload);
       dispatch(new_session(session.payload));
     });
-    store.query('test/session', { hello: 'world22' });
   };
 }
