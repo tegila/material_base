@@ -69,7 +69,7 @@ Dashboard.propTypes = {
   status: PropTypes.bool.isRequired,
   sessions: PropTypes.array.isRequired,
   load_sessions: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default compose(

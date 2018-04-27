@@ -1,23 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Paper from 'material-ui/Paper';
+import grey from 'material-ui/colors/grey';
+
 import CustomAppBar from '../components/CustomAppBar';
+import { save_session } from '../actions/app';
+
 const pStyle = {
-  margin: "15px"
+  marginTop: '15px'
 };
+
 const styles = theme => ({
-  root: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
-    marginTop: theme.spacing.unit * 3,
+  root: {
     flexGrow: 1,
-  }),
+  },
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+  },
+  paper: {
+    backgroundColor: grey[100],
+    padding: theme.spacing.unit * 2,
+    height: '100%'
   },
   bootstrapRoot: {
     padding: 0,
@@ -31,7 +40,7 @@ const styles = theme => ({
     border: '1px solid #ced4da',
     fontSize: 16,
     padding: '10px 12px',
-    width: 'calc(100% - 24px)',
+    width: '500px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     '&:focus': {
       borderColor: '#80bdff',
@@ -41,20 +50,31 @@ const styles = theme => ({
   bootstrapFormLabel: {
     fontSize: 18,
   },
-
+  button: {
+    width: '100%'
+  }
 });
 
-function Session({ match, classes }) {
+function Session({ match, classes, sessions, save_session }) {
+  const session = sessions.find((session) => {
+    return (session._id === match.params.id);
+  });
+
+  const buttonClickHandler = (session) => {
+    console.log(session, save_session);
+    save_session(session);
+  };
+
   return (
-    <div>
+    <div className={classes.root}>
       <CustomAppBar />
-      <Paper className={classes.root}>
+      <Paper className={classes.paper}>
         <div className={classes.container}>
           <TextField
-            fullWidth={true}
-            disabled={true}
+            // fullWidth={true}
+            // disabled={true}
             label="Código"
-            defaultValue={match.params.id}
+            defaultValue={session._id}
             id="bootstrap-input"
             InputProps={{
               disableUnderline: true,
@@ -69,9 +89,10 @@ function Session({ match, classes }) {
             }}
           />
           <TextField
-            fullWidth={true}
-            label="Nome"
+            // fullWidth={true}
+            label="Hello"
             id="bootstrap-input"
+            defaultValue={session.hello}
             InputProps={{
               disableUnderline: true,
               classes: {
@@ -86,12 +107,15 @@ function Session({ match, classes }) {
           />
         </div>
         <div className={classes.container}>
-          <Button variant="raised"
+          <Button
+            variant="raised"
             color="secondary"
-            fullWidth={true}
+            // fullWidth={true}
             className={classes.button}
-            style={pStyle}>
-            Editar
+            style={pStyle}
+            onClick={() => buttonClickHandler(session)}
+          >
+            Salvar
           </Button>
         </div>
       </Paper>
@@ -101,7 +125,17 @@ function Session({ match, classes }) {
 
 Session.propTypes = {
   match: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  sessions: PropTypes.array.isRequired,
+  save_session: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(Session);
+export default compose(
+  withStyles(styles),
+  connect(
+    state => ({
+      sessions: state.app.sessions,
+    }),
+    { save_session }
+  ),
+)(Session);
