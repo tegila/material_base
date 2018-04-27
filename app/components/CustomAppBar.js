@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -9,6 +10,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
+import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import * as colors from 'material-ui/colors';
 
 import CustomDrawer from './CustomDrawer';
@@ -30,14 +32,22 @@ const styles = {
 };
 
 const CustomAppBar = (props) => {
-  const { classes, children, drawer, toggle_drawer } = props;
-  console.log(drawer);
+  const { classes, children, toggle_drawer, history } = props;
+
+  const button = history.location.pathname.localeCompare('/') ? (
+    <IconButton className={classes.menuButton} aria-label="Menu" onClick={() => history.goBack()}>
+      <ChevronLeft />
+    </IconButton>
+  ) : (
+    <IconButton className={classes.menuButton} aria-label="Menu" onClick={() => toggle_drawer()}>
+      <MenuIcon />
+    </IconButton>
+  );
+
   return (
-    <AppBar position="static" color="default">
+    <AppBar position="static" color="primary">
       <Toolbar>
-        <IconButton className={classes.menuButton} aria-label="Menu" onClick={() => toggle_drawer()}>
-          <MenuIcon />
-        </IconButton>
+        { button }
         <Typography type="title" align="center">
           Salesforce
         </Typography>
@@ -55,8 +65,8 @@ CustomAppBar.defaultProps = {
 CustomAppBar.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  drawer: PropTypes.bool.isRequired,
-  toggle_drawer: PropTypes.func.isRequired
+  toggle_drawer: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default compose(
@@ -67,4 +77,4 @@ export default compose(
     }),
     { toggle_drawer }
   ),
-)(CustomAppBar);
+)(withRouter(CustomAppBar));
