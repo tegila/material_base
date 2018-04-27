@@ -23,7 +23,7 @@ function Dashboard({ classes, status, sessions, load_sessions }) {
       <h3>DASHBOARD: HELLO MARIO!!!</h3>
       <Link to="/question/12">Pergunta numero 12</Link>
       { sessions.map((session) => {
-        return <li> {session._id} </li>;
+        return <li key={session._id}> {session._id} </li>;
       }) }
     </div>
   );
