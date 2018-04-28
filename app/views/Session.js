@@ -49,6 +49,7 @@ const styles = theme => ({
   },
   bootstrapFormLabel: {
     fontSize: 18,
+    fontFamily: 'Roboto'
   },
   button: {
     width: '100%'

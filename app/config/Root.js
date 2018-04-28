@@ -23,10 +23,6 @@ const theme = createMuiTheme({
     secondary: blue,
   },
   typography: {
-    // Use the system font over Roboto.
-    fontFamily:
-      '-apple-system,system-ui,BlinkMacSystemFont,' +
-      '"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
     fontSize: 20,
   },
   status: {
