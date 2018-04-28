@@ -1,8 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Route, withRouter } from 'react-router-dom';
 
 import Dashboard from './Dashboard';
 import Session from './Session';
+import { bootstrap } from '../actions/app';
 
 const styles = {
   root: {
@@ -10,7 +13,9 @@ const styles = {
   }
 };
 
-const App = () => {
+const App = ({ bootstrap, run }) => {
+  if (!run) bootstrap();
+
   return (
     <div className={styles.root}>
       <Route path="/" exact component={Dashboard} />
@@ -19,4 +24,14 @@ const App = () => {
   );
 };
 
-export default App;
+App.propTypes = {
+  run: PropTypes.bool.isRequired,
+  bootstrap: PropTypes.func.isRequired,
+};
+
+export default withRouter(connect(
+  state => ({
+    run: state.app.run,
+  }),
+  { bootstrap }
+)(App));

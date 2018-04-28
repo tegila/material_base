@@ -1,7 +1,8 @@
-import { TOGGLE_DRAWER, NEW_SESSIONS, NEW_STATUS } from './constants';
+import { TOGGLE_DRAWER, NEW_SESSIONS, NEW_STATUS, BOOTSTRAP } from './constants';
 
 export function app(
   state = {
+    run: false,
     status: false,
     drawer: false,
     sessions: []
@@ -9,6 +10,11 @@ export function app(
   action
 ) {
   switch (action.type) {
+    case BOOTSTRAP: {
+      return Object.assign({}, state, {
+        run: true
+      });
+    }
     case NEW_STATUS: {
       return Object.assign({}, state, {
         status: true
