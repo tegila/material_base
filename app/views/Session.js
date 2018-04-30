@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
-import Paper from 'material-ui/Paper';
+import { withStyles, TextField, Button, Paper, Grid } from 'material-ui';
 import grey from 'material-ui/colors/grey';
 
 import CustomAppBar from '../components/CustomAppBar';
@@ -26,7 +23,7 @@ const styles = theme => ({
   paper: {
     backgroundColor: grey[100],
     padding: theme.spacing.unit * 2,
-    height: '100%'
+    height: '100vh'
   },
   bootstrapRoot: {
     padding: 0,
@@ -40,7 +37,6 @@ const styles = theme => ({
     border: '1px solid #ced4da',
     fontSize: 16,
     padding: '10px 12px',
-    width: '500px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     '&:focus': {
       borderColor: '#80bdff',
@@ -50,9 +46,6 @@ const styles = theme => ({
   bootstrapFormLabel: {
     fontSize: 18,
   },
-  button: {
-    width: '100%'
-  }
 });
 
 function Session({ match, classes, sessions, save_session }) {
@@ -66,58 +59,62 @@ function Session({ match, classes, sessions, save_session }) {
   };
 
   return (
-    <div className={classes.root}>
+    <div>
       <CustomAppBar />
       <Paper className={classes.paper}>
-        <div className={classes.container}>
-          <TextField
-            // fullWidth={true}
-            // disabled={true}
-            label="Código"
-            defaultValue={session._id}
-            id="bootstrap-input"
-            InputProps={{
-              disableUnderline: true,
-              classes: {
-                root: classes.bootstrapRoot,
-                input: classes.bootstrapInput,
-              },
-            }}
-            InputLabelProps={{
-              shrink: true,
-              className: classes.bootstrapFormLabel,
-            }}
-          />
-          <TextField
-            // fullWidth={true}
-            label="Hello"
-            id="bootstrap-input"
-            defaultValue={session.hello}
-            InputProps={{
-              disableUnderline: true,
-              classes: {
-                root: classes.bootstrapRoot,
-                input: classes.bootstrapInput,
-              },
-            }}
-            InputLabelProps={{
-              shrink: true,
-              className: classes.bootstrapFormLabel,
-            }}
-          />
-        </div>
-        <div className={classes.container}>
-          <Button
-            variant="raised"
-            color="secondary"
-            // fullWidth={true}
-            className={classes.button}
-            style={pStyle}
-            onClick={() => buttonClickHandler(session)}
-          >
-            Salvar
-          </Button>
-        </div>
+        <Grid container spacing={8}>
+          <Grid item xs={12} lg={6}>
+            <TextField
+              fullWidth={true}
+              // disabled={true}
+              label="Código"
+              defaultValue={session._id}
+              id="bootstrap-input"
+              InputProps={{
+                disableUnderline: true,
+                classes: {
+                  root: classes.bootstrapRoot,
+                  input: classes.bootstrapInput,
+                },
+              }}
+              InputLabelProps={{
+                shrink: true,
+                className: classes.bootstrapFormLabel,
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <TextField
+              fullWidth={true}
+              label="Hello"
+              id="bootstrap-input"
+              defaultValue={session.hello}
+              InputProps={{
+                disableUnderline: true,
+                classes: {
+                  root: classes.bootstrapRoot,
+                  input: classes.bootstrapInput,
+                },
+              }}
+              InputLabelProps={{
+                shrink: true,
+                className: classes.bootstrapFormLabel,
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} lg={12}>
+            <Button
+              variant="raised"
+              color="secondary"
+              fullWidth={true}
+              className={classes.button}
+              style={pStyle}
+              onClick={() => buttonClickHandler(session)}
+            >
+              Salvar
+            </Button>
+          </Grid>
+        </Grid>
       </Paper>
     </div>
   );
