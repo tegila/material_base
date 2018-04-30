@@ -55,6 +55,11 @@ export function load_sessions() {
 export function save_session(session) {
   return () => {
     console.log('action app: (save session) ', session);
-    store.update('test/session', session);
+    store.update('test/session', {
+      target: {
+        _id: session._id
+      },
+      data: session
+    });
   };
 }

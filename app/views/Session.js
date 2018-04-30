@@ -26,7 +26,8 @@ const styles = theme => ({
   paper: {
     backgroundColor: grey[100],
     padding: theme.spacing.unit * 2,
-    height: '100%'
+    minHeight: '85vh',
+    maxHeight: '85vh',
   },
   bootstrapRoot: {
     padding: 0,
@@ -60,10 +61,15 @@ function Session({ match, classes, sessions, save_session }) {
   const session = sessions.find((session) => {
     return (session._id === match.params.id);
   });
+  const _session = Object.assign({}, session);
 
-  const buttonClickHandler = (session) => {
-    console.log(session, save_session);
-    save_session(session);
+  const buttonClickHandler = () => {
+    console.log(_session);
+    save_session(_session);
+  };
+
+  const handleChange = (field, value) => {
+    _session[field] = value;
   };
 
   return (
@@ -75,7 +81,8 @@ function Session({ match, classes, sessions, save_session }) {
             // fullWidth={true}
             // disabled={true}
             label="Código"
-            defaultValue={session._id}
+            defaultValue={_session._id}
+            onChange={(e) => handleChange('_id', e.target.value)}
             id="bootstrap-input"
             InputProps={{
               disableUnderline: true,
@@ -93,7 +100,8 @@ function Session({ match, classes, sessions, save_session }) {
             // fullWidth={true}
             label="Hello"
             id="bootstrap-input"
-            defaultValue={session.hello}
+            defaultValue={_session.hello}
+            onChange={(e) => handleChange('hello', e.target.value)}
             InputProps={{
               disableUnderline: true,
               classes: {
