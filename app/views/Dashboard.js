@@ -42,7 +42,7 @@ function Dashboard({ classes, status, sessions, load_sessions, history }) {
               dense
               button
               className={classes.listItem}
-              onClick={() => handleToggle(session)}
+              onClick={() => setTimeout(() => handleToggle(session), 300)}
             >
               <Checkbox
                 checked={false}

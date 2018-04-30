@@ -35,11 +35,11 @@ const CustomAppBar = (props) => {
   const { classes, children, toggle_drawer, history } = props;
 
   const button = history.location.pathname.localeCompare('/') ? (
-    <IconButton className={classes.menuButton} aria-label="Menu" onClick={() => history.goBack()}>
+    <IconButton className={classes.menuButton} aria-label="Menu" onClick={() => setTimeout(() => history.goBack(), 300)}>
       <ChevronLeft />
     </IconButton>
   ) : (
-    <IconButton className={classes.menuButton} aria-label="Menu" onClick={() => toggle_drawer()}>
+    <IconButton className={classes.menuButton} aria-label="Menu" onClick={() => setTimeout(() => toggle_drawer(), 300)}>
       <MenuIcon />
     </IconButton>
   );
