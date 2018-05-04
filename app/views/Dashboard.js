@@ -9,7 +9,7 @@ import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import IconButton from 'material-ui/IconButton';
-import { Worker } from 'mdi-material-ui';
+import { Plus, Delete } from 'mdi-material-ui';
 
 import CustomAppBar from '../components/CustomAppBar';
 
@@ -19,20 +19,53 @@ const styles = {
   root: {
     width: '100%',
   },
+  menuButton: {
+    position: 'fixed',
+    right: '0px',
+    'margin-right': '15px'
+  },
 };
 
 function Dashboard({ classes, loading, todos, load_todos, history }) {
   if (!loading) load_todos();
 
-  const handleToggle = (todo) => {
-    console.log("todos: ", todo);
-    history.push(`/todo/${todo._id}`);
+  const handleClick = (e, todo, action) => {
+    e.stopPropagation();
+    setTimeout(() => {
+      switch (action) {
+        case 'GOTO': {
+          return history.push(`/todo/${todo._id}`);
+        }
+        case 'SELECT': {
+          return console.log('SELECT');
+        }
+        case 'ADD': {
+          return console.log('ADD');
+        }
+        case 'DELETE': {
+          return console.log('DELETE');
+        }
+        default: {
+          return false;
+        }
+      }
+    }, 300);
   };
 
   console.log("RENDERRRRRR!!!!!");
   return (
     <div className={classes.root}>
-      <CustomAppBar />
+      <CustomAppBar
+        top_right_button={
+          <IconButton
+            aria-label="Menu"
+            className={classes.menuButton}
+            onClick={(e) => handleClick(e, null, 'ADD')}
+          >
+            <Plus />
+          </IconButton>
+        }
+      />
       <List>
         { todos.map((todo) => {
           return (
@@ -42,17 +75,20 @@ function Dashboard({ classes, loading, todos, load_todos, history }) {
               dense
               button
               className={classes.listItem}
-              onClick={() => setTimeout(() => handleToggle(todo), 300)}
+              onClick={(e) => handleClick(e, todo, 'GOTO')}
             >
               <Checkbox
                 checked={false}
                 tabIndex={-1}
                 disableRipple
+                onClick={(e) => handleClick(e, todo, 'SELECT')}
               />
               <ListItemText primary={todo.hello} />
               <ListItemSecondaryAction>
                 <IconButton aria-label="Comments">
-                  <Worker />
+                  <Delete
+                    onClick={(e) => handleClick(e, todo, 'DELETE')}
+                  />
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>

@@ -32,9 +32,9 @@ const styles = {
 };
 
 const CustomAppBar = (props) => {
-  const { classes, children, toggle_drawer, history } = props;
+  const { classes, children, top_right_button, toggle_drawer, history } = props;
 
-  const button = history.location.pathname.localeCompare('/') ? (
+  const top_left_button = history.location.pathname.localeCompare('/') ? (
     <IconButton className={classes.menuButton} aria-label="Menu" onClick={() => setTimeout(() => history.goBack(), 300)}>
       <ChevronLeft />
     </IconButton>
@@ -47,10 +47,11 @@ const CustomAppBar = (props) => {
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
-        { button }
+        { top_left_button }
         <Typography type="title" align="center">
           Salesforce
         </Typography>
+        { top_right_button }
       </Toolbar>
       <CustomDrawer />
       {children}
@@ -59,11 +60,13 @@ const CustomAppBar = (props) => {
 };
 
 CustomAppBar.defaultProps = {
-  children: false
+  children: false,
+  top_right_button: false,
 };
 
 CustomAppBar.propTypes = {
   children: PropTypes.node,
+  top_right_button: PropTypes.node,
   classes: PropTypes.object.isRequired,
   toggle_drawer: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
