@@ -32,10 +32,12 @@ export function app(state = initial_state, action) {
       });
     }
     case 'UPDATE': {
-      return Object.assign({}, state, state.sessions.map((session) => {
-        if (session._id === action.data._id) return action.data;
-        return session;
-      }));
+      return Object.assign({}, state, {
+        sessions: state.sessions.map((session) => {
+          if (session._id === action.data._id) return action.data;
+          return session;
+        })
+      });
     }
     default:
       return state;
