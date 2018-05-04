@@ -10,7 +10,7 @@ import Paper from 'material-ui/Paper';
 import grey from 'material-ui/colors/grey';
 
 import CustomAppBar from '../components/CustomAppBar';
-import { save_session } from '../actions/app';
+import { save_todo } from '../actions/todos';
 
 const pStyle = {
   marginTop: '15px'
@@ -58,21 +58,21 @@ const styles = theme => ({
   }
 });
 
-function Session({ match, classes, sessions, history, save_session }) {
-  const session = sessions.find((session) => {
-    return (session._id === match.params.id);
+function Todo({ match, classes, todos, history, save_todo }) {
+  const todo = todos.find((todo) => {
+    return (todo._id === match.params.id);
   });
-  const _session = Object.assign({}, session);
+  const _todo = Object.assign({}, todo);
 
-  const buttonClickHandler = (_session) => {
-    console.log(_session);
-    save_session(_session, () => {
+  const buttonClickHandler = (_todo) => {
+    console.log(_todo);
+    save_todo(_todo, () => {
       history.push('/');
     });
   };
 
   const handleChange = (field, value) => {
-    _session[field] = value;
+    _todo[field] = value;
   };
 
   return (
@@ -84,7 +84,7 @@ function Session({ match, classes, sessions, history, save_session }) {
             // fullWidth={true}
             // disabled={true}
             label="Código"
-            defaultValue={_session._id}
+            defaultValue={_todo._id}
             onChange={(e) => handleChange('_id', e.target.value)}
             id="bootstrap-input"
             InputProps={{
@@ -103,7 +103,7 @@ function Session({ match, classes, sessions, history, save_session }) {
             // fullWidth={true}
             label="Hello"
             id="bootstrap-input"
-            defaultValue={_session.hello}
+            defaultValue={_todo.hello}
             onChange={(e) => handleChange('hello', e.target.value)}
             InputProps={{
               disableUnderline: true,
@@ -125,7 +125,7 @@ function Session({ match, classes, sessions, history, save_session }) {
             // fullWidth={true}
             className={classes.button}
             style={pStyle}
-            onClick={() => buttonClickHandler(_session)}
+            onClick={() => buttonClickHandler(_todo)}
           >
             Salvar
           </Button>
@@ -135,11 +135,11 @@ function Session({ match, classes, sessions, history, save_session }) {
   );
 }
 
-Session.propTypes = {
+Todo.propTypes = {
   match: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  sessions: PropTypes.array.isRequired,
-  save_session: PropTypes.func.isRequired,
+  todos: PropTypes.array.isRequired,
+  save_todo: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 };
 
@@ -147,8 +147,8 @@ export default compose(
   withStyles(styles),
   connect(
     state => ({
-      sessions: state.app.sessions,
+      todos: state.todos.todos,
     }),
-    { save_session }
+    { save_todo }
   ),
-)(withRouter(Session));
+)(withRouter(Todo));

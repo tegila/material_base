@@ -13,7 +13,7 @@ import { Worker } from 'mdi-material-ui';
 
 import CustomAppBar from '../components/CustomAppBar';
 
-import { load_sessions } from '../actions/app';
+import { load_todos } from '../actions/todos';
 
 const styles = {
   root: {
@@ -21,12 +21,12 @@ const styles = {
   },
 };
 
-function Dashboard({ classes, status, sessions, load_sessions, history }) {
-  if (!status) load_sessions();
+function Dashboard({ classes, loading, todos, load_todos, history }) {
+  if (!loading) load_todos();
 
-  const handleToggle = (session) => {
-    console.log("sessions: ", session);
-    history.push(`/sessions/${session._id}`);
+  const handleToggle = (todo) => {
+    console.log("todos: ", todo);
+    history.push(`/todo/${todo._id}`);
   };
 
   console.log("RENDERRRRRR!!!!!");
@@ -34,22 +34,22 @@ function Dashboard({ classes, status, sessions, load_sessions, history }) {
     <div className={classes.root}>
       <CustomAppBar />
       <List>
-        { sessions.map((session) => {
+        { todos.map((todo) => {
           return (
             <ListItem
-              key={session._id}
+              key={todo._id}
               role={undefined}
               dense
               button
               className={classes.listItem}
-              onClick={() => setTimeout(() => handleToggle(session), 300)}
+              onClick={() => setTimeout(() => handleToggle(todo), 300)}
             >
               <Checkbox
                 checked={false}
                 tabIndex={-1}
                 disableRipple
               />
-              <ListItemText primary={session.hello} />
+              <ListItemText primary={todo.hello} />
               <ListItemSecondaryAction>
                 <IconButton aria-label="Comments">
                   <Worker />
@@ -66,9 +66,9 @@ function Dashboard({ classes, status, sessions, load_sessions, history }) {
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
-  status: PropTypes.bool.isRequired,
-  sessions: PropTypes.array.isRequired,
-  load_sessions: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  todos: PropTypes.array.isRequired,
+  load_todos: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 };
 
@@ -76,9 +76,9 @@ export default compose(
   withStyles(styles),
   connect(
     state => ({
-      status: state.app.status,
-      sessions: state.app.sessions,
+      loading: state.todos.loading,
+      todos: state.todos.todos,
     }),
-    { load_sessions }
+    { load_todos }
   ),
 )(withRouter(Dashboard));

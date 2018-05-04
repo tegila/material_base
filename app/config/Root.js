@@ -11,7 +11,6 @@ import blue from 'material-ui/colors/blue';
 import yellow from 'material-ui/colors/yellow';
 
 import rootReducer from '../reducers';
-import history from './history';
 
 import App from '../views/App';
 
@@ -36,7 +35,7 @@ const theme = createMuiTheme({
 const Root = () => {
   return (
     <Provider store={store}>
-      <HashRouter history={history}>
+      <HashRouter>
         <MuiThemeProvider theme={theme}>
           <App />
         </MuiThemeProvider>

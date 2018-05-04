@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
 import { app } from './app';
-import { questions } from './questions';
+import { todos } from './todos';
 
 const rootReducer = combineReducers({
   app,
-  questions
+  todos
 });
 
 export default rootReducer;
