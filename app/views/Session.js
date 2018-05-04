@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -57,15 +58,17 @@ const styles = theme => ({
   }
 });
 
-function Session({ match, classes, sessions, save_session }) {
+function Session({ match, classes, sessions, history, save_session }) {
   const session = sessions.find((session) => {
     return (session._id === match.params.id);
   });
   const _session = Object.assign({}, session);
 
-  const buttonClickHandler = () => {
+  const buttonClickHandler = (_session) => {
     console.log(_session);
-    save_session(_session);
+    save_session(_session, () => {
+      history.push('/');
+    });
   };
 
   const handleChange = (field, value) => {
@@ -122,7 +125,7 @@ function Session({ match, classes, sessions, save_session }) {
             // fullWidth={true}
             className={classes.button}
             style={pStyle}
-            onClick={() => buttonClickHandler(session)}
+            onClick={() => buttonClickHandler(_session)}
           >
             Salvar
           </Button>
@@ -136,7 +139,8 @@ Session.propTypes = {
   match: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   sessions: PropTypes.array.isRequired,
-  save_session: PropTypes.func.isRequired
+  save_session: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default compose(
@@ -147,4 +151,4 @@ export default compose(
     }),
     { save_session }
   ),
-)(Session);
+)(withRouter(Session));

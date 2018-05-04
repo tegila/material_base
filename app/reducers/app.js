@@ -1,14 +1,14 @@
-import { TOGGLE_DRAWER, NEW_SESSIONS, NEW_STATUS, BOOTSTRAP } from './constants';
+import { TOGGLE_DRAWER, NEW_STATUS, NEW_SESSIONS, BOOTSTRAP } from './constants';
 
-export function app(
-  state = {
-    run: false,
-    status: false,
-    drawer: false,
-    sessions: []
-  },
-  action
-) {
+const initial_state = {
+  run: false,
+  status: false,
+  drawer: false,
+  sessions: []
+};
+
+export function app(state = initial_state, action) {
+  // console.log(action);
   switch (action.type) {
     case BOOTSTRAP: {
       return Object.assign({}, state, {
@@ -25,11 +25,17 @@ export function app(
         drawer: action.open || !state.drawer,
       });
     }
-    case NEW_SESSIONS: {
-      console.log(action);
+    case 'QUERY': {
+      console.log(NEW_SESSIONS, action);
       return Object.assign({}, state, {
-        sessions: [...state.sessions, action.session]
+        sessions: [...state.sessions, action.data]
       });
+    }
+    case 'UPDATE': {
+      return Object.assign({}, state, state.sessions.map((session) => {
+        if (session._id === action.data._id) return action.data;
+        return session;
+      }));
     }
     default:
       return state;
