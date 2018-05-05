@@ -47,11 +47,11 @@ const CustomAppBar = (props) => {
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
-        { top_left_button }
+        {top_left_button}
         <Typography type="title" align="center">
-          Salesforce
+          TODOS
         </Typography>
-        { top_right_button }
+        {top_right_button}
       </Toolbar>
       <CustomDrawer />
       {children}

@@ -13,7 +13,7 @@ import { Plus, Delete } from 'mdi-material-ui';
 
 import CustomAppBar from '../components/CustomAppBar';
 
-import { load_todos } from '../actions/todos';
+import { load_todos, select_todo, delete_todo } from '../actions/todos';
 
 const styles = {
   root: {
@@ -26,7 +26,10 @@ const styles = {
   },
 };
 
-function Dashboard({ classes, loading, todos, load_todos, history }) {
+function Dashboard(props) {
+  const { classes, loading, history } = props;
+  const { todos, selectedTodos, load_todos, select_todo, delete_todo } = props;
+
   if (!loading) load_todos();
 
   const handleClick = (e, todo, action) => {
@@ -37,13 +40,13 @@ function Dashboard({ classes, loading, todos, load_todos, history }) {
           return history.push(`/todo/${todo._id}`);
         }
         case 'SELECT': {
-          return console.log('SELECT');
+          return select_todo(todo);
         }
         case 'ADD': {
-          return console.log('ADD');
+          return history.push(`/todo`);
         }
         case 'DELETE': {
-          return console.log('DELETE');
+          return delete_todo(todo);
         }
         default: {
           return false;
@@ -78,10 +81,10 @@ function Dashboard({ classes, loading, todos, load_todos, history }) {
               onClick={(e) => handleClick(e, todo, 'GOTO')}
             >
               <Checkbox
-                checked={false}
                 tabIndex={-1}
                 disableRipple
                 onClick={(e) => handleClick(e, todo, 'SELECT')}
+                checked={!!selectedTodos[todo._id]}
               />
               <ListItemText primary={todo.hello} />
               <ListItemSecondaryAction>
@@ -104,7 +107,10 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   todos: PropTypes.array.isRequired,
+  selectedTodos: PropTypes.object.isRequired,
   load_todos: PropTypes.func.isRequired,
+  select_todo: PropTypes.func.isRequired,
+  delete_todo: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 };
 
@@ -114,7 +120,8 @@ export default compose(
     state => ({
       loading: state.todos.loading,
       todos: state.todos.todos,
+      selectedTodos: state.todos.selectedTodos,
     }),
-    { load_todos }
+    { load_todos, select_todo, delete_todo }
   ),
 )(withRouter(Dashboard));
