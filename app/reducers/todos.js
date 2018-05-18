@@ -1,6 +1,6 @@
 const initial_state = {
   loading: false,
-  selectedTodos: [],
+  selectedTodos: {},
   todos: []
 };
 
