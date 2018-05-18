@@ -10,7 +10,7 @@ import Paper from 'material-ui/Paper';
 import grey from 'material-ui/colors/grey';
 
 import CustomAppBar from '../components/CustomAppBar';
-import { save_todo } from '../actions/todos';
+import { save_todo, update_todo } from '../actions/todos';
 
 const pStyle = {
   marginTop: '15px'
@@ -58,15 +58,16 @@ const styles = theme => ({
   }
 });
 
-function Todo({ match, classes, todos, history, save_todo }) {
+function Todo({ match, classes, todos, history, save_todo, update_todo }) {
   const todo = todos.find((todo) => {
     return (todo._id === match.params.id);
   });
   const _todo = Object.assign({}, todo);
+  console.log(save_todo);
 
   const buttonClickHandler = (_todo) => {
     console.log(_todo);
-    save_todo(_todo, () => {
+    update_todo(_todo, () => {
       history.push('/');
     });
   };
@@ -140,6 +141,7 @@ Todo.propTypes = {
   classes: PropTypes.object.isRequired,
   todos: PropTypes.array.isRequired,
   save_todo: PropTypes.func.isRequired,
+  update_todo: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 };
 
@@ -149,6 +151,6 @@ export default compose(
     state => ({
       todos: state.todos.todos,
     }),
-    { save_todo }
+    { save_todo, update_todo }
   ),
 )(withRouter(Todo));
