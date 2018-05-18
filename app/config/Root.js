@@ -1,8 +1,10 @@
 import React from 'react';
 import { HashRouter } from 'react-router-dom';
+
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
+import logger from 'redux-logger';
 
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import blue from 'material-ui/colors/blue';
@@ -14,7 +16,7 @@ import App from '../views/App';
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunkMiddleware)
+  applyMiddleware(thunkMiddleware, logger),
 );
 
 const theme = createMuiTheme({
@@ -23,10 +25,6 @@ const theme = createMuiTheme({
     secondary: blue,
   },
   typography: {
-    // Use the system font over Roboto.
-    fontFamily:
-      '-apple-system,system-ui,BlinkMacSystemFont,' +
-      '"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
     fontSize: 20,
   },
   status: {

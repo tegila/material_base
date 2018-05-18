@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -9,7 +10,7 @@ import Paper from 'material-ui/Paper';
 import grey from 'material-ui/colors/grey';
 
 import CustomAppBar from '../components/CustomAppBar';
-import { save_session } from '../actions/app';
+import { save_todo, update_todo } from '../actions/todos';
 
 const pStyle = {
   marginTop: '15px'
@@ -26,7 +27,8 @@ const styles = theme => ({
   paper: {
     backgroundColor: grey[100],
     padding: theme.spacing.unit * 2,
-    height: '100%'
+    minHeight: '85vh',
+    maxHeight: '85vh',
   },
   bootstrapRoot: {
     padding: 0,
@@ -49,20 +51,29 @@ const styles = theme => ({
   },
   bootstrapFormLabel: {
     fontSize: 18,
+    fontFamily: 'Roboto'
   },
   button: {
     width: '100%'
   }
 });
 
-function Session({ match, classes, sessions, save_session }) {
-  const session = sessions.find((session) => {
-    return (session._id === match.params.id);
+function Todo({ match, classes, todos, history, save_todo, update_todo }) {
+  const todo = todos.find((todo) => {
+    return (todo._id === match.params.id);
   });
+  const _todo = Object.assign({}, todo);
+  console.log(save_todo);
 
-  const buttonClickHandler = (session) => {
-    console.log(session, save_session);
-    save_session(session);
+  const buttonClickHandler = (_todo) => {
+    console.log(_todo);
+    update_todo(_todo, () => {
+      history.push('/');
+    });
+  };
+
+  const handleChange = (field, value) => {
+    _todo[field] = value;
   };
 
   return (
@@ -74,7 +85,8 @@ function Session({ match, classes, sessions, save_session }) {
             // fullWidth={true}
             // disabled={true}
             label="Código"
-            defaultValue={session._id}
+            defaultValue={_todo._id}
+            onChange={(e) => handleChange('_id', e.target.value)}
             id="bootstrap-input"
             InputProps={{
               disableUnderline: true,
@@ -92,7 +104,8 @@ function Session({ match, classes, sessions, save_session }) {
             // fullWidth={true}
             label="Hello"
             id="bootstrap-input"
-            defaultValue={session.hello}
+            defaultValue={_todo.hello}
+            onChange={(e) => handleChange('hello', e.target.value)}
             InputProps={{
               disableUnderline: true,
               classes: {
@@ -113,7 +126,7 @@ function Session({ match, classes, sessions, save_session }) {
             // fullWidth={true}
             className={classes.button}
             style={pStyle}
-            onClick={() => buttonClickHandler(session)}
+            onClick={() => buttonClickHandler(_todo)}
           >
             Salvar
           </Button>
@@ -123,19 +136,21 @@ function Session({ match, classes, sessions, save_session }) {
   );
 }
 
-Session.propTypes = {
+Todo.propTypes = {
   match: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  sessions: PropTypes.array.isRequired,
-  save_session: PropTypes.func.isRequired
+  todos: PropTypes.array.isRequired,
+  save_todo: PropTypes.func.isRequired,
+  update_todo: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default compose(
   withStyles(styles),
   connect(
     state => ({
-      sessions: state.app.sessions,
+      todos: state.todos.todos,
     }),
-    { save_session }
+    { save_todo, update_todo }
   ),
-)(Session);
+)(withRouter(Todo));

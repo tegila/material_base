@@ -1,28 +1,18 @@
-import { TOGGLE_DRAWER, NEW_SESSIONS, NEW_STATUS } from './constants';
+const initial_state = {
+  running: false,
+  drawer: false,
+};
 
-export function app(
-  state = {
-    status: false,
-    drawer: false,
-    sessions: []
-  },
-  action
-) {
+export function app(state = initial_state, action) {
   switch (action.type) {
-    case NEW_STATUS: {
+    case 'BOOTSTRAP': {
       return Object.assign({}, state, {
-        status: true
+        running: true
       });
     }
-    case TOGGLE_DRAWER: {
+    case 'TOGGLE_DRAWER': {
       return Object.assign({}, state, {
         drawer: action.open || !state.drawer,
-      });
-    }
-    case NEW_SESSIONS: {
-      console.log(action);
-      return Object.assign({}, state, {
-        sessions: [...state.sessions, action.session]
       });
     }
     default:
