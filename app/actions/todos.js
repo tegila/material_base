@@ -2,10 +2,17 @@ import persist from '../config/persistence';
 
 const COLLECTION = 'test/session';
 
+export function new_todo(todo) {
+  return {
+    type: 'QUERY',
+    data: todo
+  };
+}
+
 export function todo_news(todo) {
   return {
-    type: todo.type,
-    data: todo.data
+    type: todo.action,
+    data: todo.res
   };
 }
 
@@ -14,9 +21,13 @@ export function load_todos() {
     dispatch({ type: 'LOADING_TODOS' });
 
     persist.on(COLLECTION, (todo) => {
+      if (todo.action === 'query') return;
+      console.log(todo);
       dispatch(todo_news(todo));
     });
-    persist.query(COLLECTION, {});
+    persist.query(COLLECTION, {})
+      .then((data) => data.forEach(todo => dispatch(new_todo(todo))))
+      .catch(console.log);
   };
 }
 

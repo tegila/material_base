@@ -62,14 +62,19 @@ function Todo({ match, classes, todos, history, save_todo, update_todo }) {
   const todo = todos.find((todo) => {
     return (todo._id === match.params.id);
   });
-  const _todo = Object.assign({}, todo);
+  const _todo = Object.assign({}, {
+    _id: "",
+    hello: ""
+  }, todo);
   console.log(save_todo);
 
   const buttonClickHandler = (_todo) => {
     console.log(_todo);
-    update_todo(_todo, () => {
-      history.push('/');
-    });
+    if (match.params.id) {
+      update_todo(_todo, () => history.push('/'));
+    } else {
+      save_todo(_todo, () => history.push('/'));
+    }
   };
 
   const handleChange = (field, value) => {

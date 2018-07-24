@@ -1,10 +1,12 @@
 import persist from '../config/persistence';
 
 export function bootstrap() {
-  persist.connect({
-    publicKey: "MpZfc/HM0OZ5JyNRdrfQOHABhZTaIVrfaRa0VTB65DE=",
-    secretKey: "45w67HOo4GfYpHiYVEF+8DdyKjrQFofKXVEFK6joOiYyll9z8czQ5nknI1F2t9A4cAGFlNohWt9pFrRVMHrkMQ=="
-  });
+  const key = {
+    publicKey: "HBYfcIpXD82Q9qyNv0yKqCgWCQMQqgrLO3srerdohRA=",
+    secretKey: "0ZCbuXRaL7Liw3GoRKu2Yt2RqRReG4A/964y1Wl+YUkcFh9wilcPzZD2rI2/TIqoKBYJAxCqCss7eyt6t2iFEA=="
+  };
+
+  persist.connect(key.secretKey);
   persist.on('connect', () => {
     console.log('connected');
   });

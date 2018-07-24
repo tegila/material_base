@@ -1,6 +1,6 @@
-import Store from '../../../redux-store-mongodb/index';
+import Store from '../../libs/mongo.io/client/';
 
-const host = process.env.THOST || "https://localhost:3000";
+const host = process.env.THOST || "https://test.tegila.com.br";
 
 const persist = Store(host);
 

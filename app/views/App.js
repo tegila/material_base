@@ -22,7 +22,7 @@ const App = ({ bootstrap, running }) => {
   return (
     <div className={styles.root}>
       <Route path="/" exact component={Dashboard} />
-      <Route path="/todo/:id" exact component={Todo} />
+      <Route path="/todo/:id?" component={Todo} />
     </div>
   );
 };
