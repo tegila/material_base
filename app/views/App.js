@@ -5,6 +5,7 @@ import { Route, withRouter } from 'react-router-dom';
 
 import Dashboard from './Dashboard';
 import Todo from './Todo';
+import Cart from './Cart';
 import { bootstrap } from '../actions/app';
 
 const styles = {
@@ -23,6 +24,7 @@ const App = ({ bootstrap, running }) => {
     <div className={styles.root}>
       <Route path="/" exact component={Dashboard} />
       <Route path="/todo/:id?" component={Todo} />
+      <Route path="/cart" component={Cart} />
     </div>
   );
 };
