@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
-import { withStyles } from "material-ui/styles";
-import TextField from "material-ui/TextField";
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   bootstrapRoot: {
@@ -204,7 +204,10 @@ function Cart({ classes }) {
               <img className={classes.itemImg} src={item.itemImg} />
               <div className={classes.itemDetail}>
                 <div className={classes.itemTitle}>{item.itemTitle}</div>
-                <div className={classes.pid}>PID: {item.itemPid}</div>
+                <div className={classes.pid}>
+                  PID:
+                  {item.itemPid}
+                </div>
               </div>
             </div>
             <hr className={classes.seperateLine} />
@@ -222,7 +225,10 @@ function Cart({ classes }) {
                   }}
                 />
               </div>
-              <div className={classes.itemPrice}>${item.itemPrice}</div>
+              <div className={classes.itemPrice}>
+                $
+                {item.itemPrice}
+              </div>
             </div>
           </div>
         ))}
@@ -237,7 +243,8 @@ function Cart({ classes }) {
             <div className={classes.price}>$39.50</div>
           </div>
           <div className={classes.checkoutButton}>
-            process to checkout {">"}
+            process to checkout
+            {">"}
           </div>
         </div>
 

@@ -21,7 +21,8 @@ export function load_todos() {
     dispatch({ type: 'LOADING_TODOS' });
 
     persist.on(COLLECTION, (todo) => {
-      if (todo.action === 'query') return;
+      console.log(todo);
+      if (!todo.action) return;
       console.log(todo);
       dispatch(todo_news(todo));
     });
@@ -39,37 +40,19 @@ export function select_todo(todo) {
 }
 
 export function delete_todo(todo, callback) {
-  return (dispatch) => {
-    persist.delete(COLLECTION, todo).then((delete_info) => {
-      dispatch({
-        type: 'DELETE_RETURN',
-        delete_info
-      });
-      callback();
-    });
+  return () => {
+    persist.remove(COLLECTION, todo).then(callback);
   };
 }
 
 export function save_todo(todo, callback) {
-  return (dispatch) => {
-    persist.save(COLLECTION, todo).then((todo) => {
-      dispatch({
-        type: 'SAVE_RETURN',
-        todo
-      });
-      callback();
-    });
+  return () => {
+    persist.save(COLLECTION, todo).then(callback);
   };
 }
 
 export function update_todo(todo, callback) {
-  return (dispatch) => {
-    persist.update(COLLECTION, todo).then((update_info) => {
-      dispatch({
-        type: 'UPDATE_RETURN',
-        update_info
-      });
-      callback();
-    });
+  return () => {
+    persist.update(COLLECTION, todo).then(callback);
   };
 }

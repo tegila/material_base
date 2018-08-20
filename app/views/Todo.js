@@ -3,11 +3,11 @@ import { withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
-import Paper from 'material-ui/Paper';
-import grey from 'material-ui/colors/grey';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import grey from '@material-ui/core/colors/grey';
 
 import CustomAppBar from '../components/CustomAppBar';
 import { save_todo, update_todo } from '../actions/todos';
@@ -59,17 +59,17 @@ const styles = theme => ({
 });
 
 function Todo({ match, classes, todos, history, save_todo, update_todo }) {
+  if (!todos) return null;
   const todo = todos.find((todo) => {
     return (todo._id === match.params.id);
   });
+
   const _todo = Object.assign({}, {
-    _id: "",
+    // _id: null,
     hello: ""
   }, todo);
-  console.log(save_todo);
 
   const buttonClickHandler = (_todo) => {
-    console.log(_todo);
     if (match.params.id) {
       update_todo(_todo, () => history.push('/'));
     } else {

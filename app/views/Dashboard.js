@@ -5,10 +5,13 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 
-import { withStyles } from 'material-ui/styles';
-import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
-import Checkbox from 'material-ui/Checkbox';
-import IconButton from 'material-ui/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
 import { Plus, Delete } from 'mdi-material-ui';
 
 import CustomAppBar from '../components/CustomAppBar';
@@ -59,7 +62,7 @@ function Dashboard(props) {
   return (
     <div className={classes.root}>
       <CustomAppBar
-        top_right_button={
+        top_right_button={(
           <IconButton
             aria-label="Menu"
             className={classes.menuButton}
@@ -67,7 +70,7 @@ function Dashboard(props) {
           >
             <Plus />
           </IconButton>
-        }
+        )}
       />
       <List>
         { todos.map((todo) => {

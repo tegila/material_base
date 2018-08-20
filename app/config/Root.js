@@ -6,9 +6,8 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
 
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import blue from 'material-ui/colors/blue';
-import yellow from 'material-ui/colors/yellow';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import * as colors from '@material-ui/core/colors';
 
 import rootReducer from '../reducers';
 
@@ -21,8 +20,8 @@ const store = createStore(
 
 const theme = createMuiTheme({
   palette: {
-    primary: yellow,
-    secondary: blue,
+    primary: colors.yellow,
+    secondary: colors.blue,
   },
   typography: {
     fontSize: 20,

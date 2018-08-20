@@ -25,12 +25,12 @@ export function todos(state = initial_state, action) {
         todos: [...state.todos, action.data]
       });
     }
-    case 'SAVE': {
+    case 'save': {
       return Object.assign({}, state, {
         todos: [...state.todos, action.data]
       });
     }
-    case 'UPDATE': {
+    case 'update': {
       return Object.assign({}, state, {
         todos: state.todos.map((todo) => {
           if (todo._id === action.data._id) return action.data;
@@ -38,7 +38,7 @@ export function todos(state = initial_state, action) {
         })
       });
     }
-    case 'DELETE': {
+    case 'remove': {
       return Object.assign({}, state, {
         todos: state.todos.filter((todo) => {
           return (todo._id !== action.data._id);
