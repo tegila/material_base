@@ -23,7 +23,7 @@ export function load_todos() {
     persist.on(COLLECTION, (todo) => {
       console.log(todo);
       if (!todo.action) return;
-      console.log(todo);
+
       dispatch(todo_news(todo));
     });
     persist.query(COLLECTION, {})

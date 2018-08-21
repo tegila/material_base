@@ -6,6 +6,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 const config = {
+  mode: 'development',
+  performance: { hints: false },
   devtool: 'cheap-module-eval-source-map',
 
   entry: [
