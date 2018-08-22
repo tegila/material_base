@@ -20,20 +20,20 @@ export function todos(state = initial_state, action) {
         })
       });
     }
-    case 'QUERY': {
+    case 'query': {
       return Object.assign({}, state, {
-        todos: [...state.todos, action.data]
+        todos: [...state.todos, action.todo]
       });
     }
     case 'save': {
       return Object.assign({}, state, {
-        todos: [...state.todos, action.data]
+        todos: [...state.todos, action.todo.payload]
       });
     }
     case 'update': {
       return Object.assign({}, state, {
         todos: state.todos.map((todo) => {
-          if (todo._id === action.data._id) return action.data;
+          if (todo._id === action.todo.payload._id) return action.todo.payload;
           return todo;
         })
       });
@@ -41,7 +41,7 @@ export function todos(state = initial_state, action) {
     case 'remove': {
       return Object.assign({}, state, {
         todos: state.todos.filter((todo) => {
-          return (todo._id !== action.data._id);
+          return (todo._id !== action.todo.payload._id);
         })
       });
     }

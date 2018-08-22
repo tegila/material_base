@@ -4,15 +4,15 @@ const COLLECTION = 'test/session';
 
 export function new_todo(todo) {
   return {
-    type: 'QUERY',
-    data: todo
+    type: 'query',
+    todo
   };
 }
 
 export function todo_news(todo) {
   return {
     type: todo.action,
-    data: todo.res
+    todo
   };
 }
 
@@ -21,9 +21,9 @@ export function load_todos() {
     dispatch({ type: 'LOADING_TODOS' });
 
     persist.on(COLLECTION, (todo) => {
+      const filter = ["remove", "save", "update"];
+      if (!todo.action || (filter.indexOf(todo.action) === -1)) return;
       console.log(todo);
-      if (!todo.action) return;
-
       dispatch(todo_news(todo));
     });
     persist.query(COLLECTION, {})
