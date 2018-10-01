@@ -5,7 +5,7 @@ const persist = Store(host);
 
 const key = {
   publicKey: "HBYfcIpXD82Q9qyNv0yKqCgWCQMQqgrLO3srerdohRA=",
-  secretKey: "0ZCbuXRaL7Liw3GoRKu2Yt2RqRReG4A/964y1Wl+YUkcFh9wilcPzZD2rI2/TIqoKBYJAxCqCss7eyt6t2iFEA=="
+  secretKey: "42EvDFt4KTG84dblNQ+Kgj8bv0H4T0+vWMJ0DXTFzLRFM4I06+/eoeOL8J1MbEwUD9Dm4KORNr5QBZDDhlp0ZQ=="
 };
 
 persist.connect(key.secretKey);

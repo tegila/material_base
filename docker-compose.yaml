@@ -1,0 +1,24 @@
+#$Env:COMPOSE_CONVERT_WINDOWS_PATHS=1
+version: '3'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./initial.js:/docker-entrypoint-initdb.d/initial.js
+    environment:
+      MONGO_INITDB_DATABASE: "__auth__"
+  mongoio:
+    image: tegila/mongoio:latest
+    ports:
+    - "3000:3000"
+    links:
+    - mongo
+  material_base:
+    build: .
+    ports:
+    - "8080:8080"
+    volumes:
+    - .:/usr/src/app
+    links:
+    - mongoio
