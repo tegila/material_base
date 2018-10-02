@@ -1,6 +1,6 @@
 import Store from '../../libs/mongo.io/client';
 
-const host = process.env.THOST || "https://test.tegila.com.br";
+const host = "https://localhost:3000";
 const persist = Store(host);
 
 const key = {
