@@ -12,7 +12,6 @@ RUN npm install webpack webpack-cli webpack-dev-server -g
 
 COPY . /usr/src/app
 
-
-CMD ["webpack-dev-server", "--mode development --host 0.0.0.0 --hot"]
+CMD yarn dev
 
 EXPOSE 8080
