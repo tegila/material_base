@@ -24,7 +24,7 @@ Simple and optimized React boilerplate. It includes:
 
 Make sure you have the latest Stable or LTS version of Node.js installed.
 
-1. `git clone https://github.com/tegila/material_base`
+1. `git clone --recurse-submodules https://github.com/tegila/material_base`
 2. Run `docker-compose up -d`
 3. Open [http://localhost:8080](http://localhost:8080)
 
