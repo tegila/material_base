@@ -27,6 +27,9 @@ Make sure you have the latest Stable or LTS version of Node.js installed.
 1. Clone the Project `git clone --recurse-submodules https://github.com/tegila/material_base`
 2. Get inside the folder `cd material_base`
 3. Start docker ecosystem `docker-compose up -d`
+> Sometimes the docker don't run all the containers so you can check with `docker ps`
+> It should list 3 containers [mongo, mongoio, material_base]
+> If the containers aren't running you need run `docker-compose up -d` again and/or debug...
 4. Enjoy [http://localhost:8080](http://localhost:8080)
 
 ## Available Commands
