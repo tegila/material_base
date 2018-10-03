@@ -8,6 +8,7 @@ const isDev = nodeEnv === 'development';
 
 module.exports = {
   entry: './app/main.js',
+  watchOptions: { poll: true },
   output: {
     path: path.resolve('dist'),
     filename: '[name].[hash].js',

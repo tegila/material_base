@@ -11,14 +11,20 @@ services:
   mongoio:
     image: tegila/mongoio:latest
     ports:
-    - "3000:3000"
+      - "3000:3000"
     links:
-    - mongo
+      - mongo
+    depends_on:
+      - mongo
   material_base:
+    image: material_base:latest
     build: .
     ports:
-    - "8080:8080"
+      - "8080:8080"
     volumes:
-    - .:/usr/src/app
+      - ./app:/usr/src/app/app
     links:
-    - mongoio
+      - mongoio
+    depends_on:
+      - mongo
+      - mongoio
