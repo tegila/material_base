@@ -10,5 +10,9 @@ RUN yarn install
 
 COPY . .
 
+WORKDIR /usr/src/app/libs/mongo.io/client
+RUN yarn install
+WORKDIR /usr/src/app
+
 CMD node_modules/.bin/webpack-dev-server --host 0.0.0.0 --mode development --hot
 EXPOSE 8080
