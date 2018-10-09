@@ -1,6 +1,6 @@
 import Store from '../../libs/mongo.io/client';
 
-const host = "https://localhost:3000";
+const host = "http://localhost:3000";
 const persist = Store(host);
 
 const key = {
