@@ -9,7 +9,7 @@ services:
     environment:
       MONGO_INITDB_DATABASE: "__auth__"
   mongoio:
-    image: tegila/mongoio:latest
+    image: freddieoliveira/mongoio:latest
     ports:
       - "3000:3000"
     links:
