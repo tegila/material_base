@@ -1,9 +1,5 @@
-import persist from '../config/persistence';
 
 export function bootstrap() {
-  persist.on('connect', () => {
-    console.log('connected');
-  });
 
   return {
     type: 'BOOTSTRAP'

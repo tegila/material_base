@@ -1,3 +1,0 @@
-[submodule "libs/mongo.io"]
-	path = libs/mongo.io
-	url = https://github.com/tegila/mongo.io
